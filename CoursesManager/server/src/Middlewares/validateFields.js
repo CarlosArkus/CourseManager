@@ -8,6 +8,7 @@ const validateFields = (req, res, next) => {
       errors: errors.mapped()
     });
   }
+  next();
 }
 
 module.exports = validateFields;

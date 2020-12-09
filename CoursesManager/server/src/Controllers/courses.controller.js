@@ -29,14 +29,4 @@ exports.addCourse = async (req, res) => {
       message: 'Something went wrong'
     });
   }
-  res.status(200).json({ ok: true, message: 'adding course' });
-}
-
-
-exports.deleteCourses = async (req, res) => {
-  res.status(200).json({ ok: true, message: 'deleting course' });
-}
-
-exports.updateCourse = async (req, res) => {
-  res.status(200).json({ ok: true, message: 'updating course' });
 }
