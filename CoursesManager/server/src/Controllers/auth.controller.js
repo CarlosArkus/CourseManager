@@ -15,7 +15,7 @@ exports.signUp = async (req, res) => {
 
     const user = new User(req.body);
     user.password = await user.encryptPassword(password);
-    user.save();
+    await user.save();
 
     res.status(201).json({
       ok: true,
@@ -61,7 +61,7 @@ exports.signIn = async (req, res) => {
         message: 'User loged in'
       });
   } catch (error) {
-    console.log('Error', error);
+    console.error('Error', error);
     res.status(500).json({
       ok: false,
       message: 'Something went wrong'

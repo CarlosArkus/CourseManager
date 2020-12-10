@@ -6,7 +6,8 @@ const { MONGO_URI } = require('./config');
     const mongooseOptions = {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useCreateIndex: true
+      useCreateIndex: true,
+      useFindAndModify: false
     }
     const db = await mongoose.connect(MONGO_URI, mongooseOptions);
     console.log('Connected to:', db.connection.name);

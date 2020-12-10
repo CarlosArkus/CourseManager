@@ -38,4 +38,13 @@ UserSchema.methods.validatePassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 }
 
+UserSchema.methods.toJSON = function() {
+  const obj = this.toObject();
+  delete obj._id;
+  delete obj.password;
+  delete obj.createdAt;
+  delete obj.updatedAt;
+  return obj
+}
+
 module.exports = model('User', UserSchema);
