@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AuthModule } from './auth/auth.module';
-import { PagesModule } from './pages/pages.module';
 
 import { AppComponent } from './app.component';
 
@@ -18,7 +17,6 @@ import { AppComponent } from './app.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     AuthModule,
-    PagesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

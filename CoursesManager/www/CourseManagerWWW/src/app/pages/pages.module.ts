@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+
+import { PagesRoutingModule } from './pages.routing';
+
 import { SharedModule } from '../shared/shared.module';
 
 import { MainPageComponent } from './main-page/main-page.component';
 import { NotfoundComponent } from './notfound/notfound.component';
-
-
 
 @NgModule({
   declarations: [
@@ -15,11 +15,12 @@ import { NotfoundComponent } from './notfound/notfound.component';
   ],
   exports: [
     MainPageComponent,
-    NotfoundComponent],
+    NotfoundComponent
+  ],
   imports: [
     CommonModule,
-    RouterModule,
-    SharedModule
+    SharedModule,
+    PagesRoutingModule
   ]
 })
 export class PagesModule { }
