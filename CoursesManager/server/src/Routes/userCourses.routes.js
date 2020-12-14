@@ -30,6 +30,9 @@ router
     CourseController.updateUserCourse)
   .delete(
     '/delete/:id',
+    [
+      verifyToken,
+    ],
     CourseController.deleteUserCourse)
 
 module.exports = router;
