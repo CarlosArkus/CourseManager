@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { MaterialModule } from '../../material.module';
+
 import { UserCoursesRoutingModule } from './user-courses.routing';
 
 import { UserCoursesViewComponent } from './user-courses-view.component';
@@ -18,7 +20,8 @@ import { UserCourseDeleteComponent } from './actions/user-course-delete/user-cou
   exports: [UserCoursesViewComponent],
   imports: [
     CommonModule,
-    UserCoursesRoutingModule
+    UserCoursesRoutingModule,
+    MaterialModule
   ]
 })
 export class UserCoursesModule { }
