@@ -17,7 +17,8 @@
     "express": "^4.17.1",
     "express-validator": "^6.8.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.5"
+    "mongoose": "^5.11.5",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "morgan": "^1.10.0",

@@ -1,6 +1,5 @@
 const Course = require('../Models/Course');
 const UserCourse = require('../Models/UserCourse');
-const User = require('../Models/User');
 
 //TODO: pagination
 exports.getUsersCourses = async (req, res) => {
@@ -16,7 +15,7 @@ exports.getUsersCourses = async (req, res) => {
       data
     });
   } catch (error) {
-    console.error(error);
+    logger.error(error.message);
     res.status(500).json({
       ok: false,
       message: 'Something went wrong'
@@ -57,7 +56,7 @@ exports.addUserCourse = async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error);
+    logger.error(error.message);
     res.status(500).json({
       ok: false,
       message: 'Something went wrong'
@@ -106,7 +105,7 @@ exports.updateUserCourse = async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error);
+    logger.error(error.message);
     res.status(500).json({
       ok: false,
       message: 'Something went wrong'
@@ -134,6 +133,7 @@ exports.deleteUserCourse = async (req, res) => {
     });
 
   } catch (error) {
+    logger.error(error.message);
     res.status(500).json({
       ok: false,
       message: 'Something went wrong'

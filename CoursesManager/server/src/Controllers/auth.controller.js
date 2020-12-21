@@ -1,5 +1,6 @@
 const User = require('../Models/User');
 const generateToken = require('../Helpers/jwt');
+const logger = require('../utilities/logger');
 
 exports.signUp = async (req, res) => {
   const { email, password } = req.body;
@@ -7,10 +8,11 @@ exports.signUp = async (req, res) => {
   try {
     const emailFound = await User.findOne({ email });
     if (emailFound) {
-      return res.status(400).json({
-        ok: false,
-        message: 'Email already exists'
-      });
+      throw new Error('Ups');
+      // return res.status(400).json({
+      //   ok: false,
+      //   message: 'Email already exists'
+      // });
     }
 
     const user = new User(req.body);
@@ -22,7 +24,7 @@ exports.signUp = async (req, res) => {
       user
     });
   } catch (error) {
-    console.error('Error', error);
+    logger.error(error.message);
     res.status(500).json({
       ok: false,
       message: 'Something went wrong'
@@ -63,7 +65,7 @@ exports.signIn = async (req, res) => {
         userId: user.id
       });
   } catch (error) {
-    console.error('Error', error);
+    logger.error(error.message);
     res.status(500).json({
       ok: false,
       message: 'Something went wrong'
