@@ -1,5 +1,7 @@
 <mat-toolbar color="primary">
   <span>Courses Manager</span>
   <span class="example-spacer"></span>
-  <button mat-raised-button color="accent" (click)="toSignIn()">Sign In</button>
+  <button mat-raised-button color="accent" *ngIf="!(isLoggedIn$ | async)" (click)="toSignIn()">Sign In</button>
+  <button mat-raised-button color="accent" *ngIf="(isLoggedIn$ | async)" (click)="toSignOut()">Sign
+    Out</button>
 </mat-toolbar>

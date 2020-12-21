@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signin',
@@ -12,19 +14,20 @@ export class SigninComponent {
   isLoading: boolean = false;
 
   signinForm: FormGroup = new FormGroup({
-    'email': new FormControl(null, [
+    'email': new FormControl('cdelarosa@arkusnexus.com', [
       Validators.required,
       Validators.email
     ]
     ),
-    'password': new FormControl(null, [
+    'password': new FormControl('123456', [
       Validators.required,
       Validators.minLength(6)
     ],
     )
   });
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private authService: AuthService) { }
 
   getEmailErrorMessage() {
     if (this.signinForm.controls.email.hasError('required')) {
@@ -43,21 +46,22 @@ export class SigninComponent {
   }
 
   onSubmit() {
-    console.log('sign in');
-    console.warn(this.signinForm.controls);
+    this.isLoading = true;
 
     this.signinForm.controls.password.disable();
     this.signinForm.controls.email.disable();
-    
-    this.isLoading = true;
-    // Simulate async call to api
-    setTimeout(() => {
-      //after login navigate to /pages
-      this.router.navigateByUrl('pages');
+
+    this.authService.signIn(this.signinForm.value).subscribe(res => {
+      this.router.navigateByUrl('/');
       this.signinForm.controls.password.enable();
       this.signinForm.controls.email.enable();
       this.isLoading = false
-    }, 4000);
+    }, err => {
+      this.signinForm.controls.password.enable();
+      this.signinForm.controls.email.enable();
+      this.isLoading = false;
+      Swal.fire('Error', err.error.message, 'error');
+    });
   }
 
 }

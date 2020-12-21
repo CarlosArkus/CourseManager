@@ -1,1 +1,8 @@
-<p>user-course-delete works!</p>
+<h1 mat-dialog-title>Delete course</h1>
+<div mat-dialog-content>
+  <span>Are you sure you want to delete this course?</span>
+</div>
+<div mat-dialog-actions align="end">
+  <button (click)="delete()" mat-raised-button color="warn">Delete</button>
+  <button mat-raised-button color="accent" (click)="onNoClick()">Cancel</button>
+</div>

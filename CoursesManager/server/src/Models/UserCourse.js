@@ -6,7 +6,7 @@ const UserCourseSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-  time: {
+  courseTime: {
     type: Number,
     required: true,
   },
@@ -14,26 +14,31 @@ const UserCourseSchema = new Schema({
     type: Types.ObjectId,
     required: true,
   },
-  course: {
-    name: {
-      type: String,
-      required: true,
-    },
-    url: {
-      type: String,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    courseType: {
-      type: String,
-      required: true,
-    }
+  courseName: {
+    type: String,
+    required: true,
   },
+  courseURL: {
+    type: String,
+  },
+  courseDescription: {
+    type: String,
+    required: true,
+  },
+  courseType: {
+    type: String,
+    required: true,
+  }
 }, {
   timestamps: true,
   versionKey: false,
 });
+
+UserCourseSchema.methods.toJSON = function() {
+  const obj = this.toObject();
+  delete obj.createdAt;
+  delete obj.updatedAt;
+  return obj
+}
 
 module.exports = model('UserCourse', UserCourseSchema);

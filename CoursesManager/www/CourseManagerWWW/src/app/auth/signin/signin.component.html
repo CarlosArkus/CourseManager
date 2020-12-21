@@ -22,6 +22,7 @@
           </button>
         </form>
         <a *ngIf="!isLoading" [routerLink]="['/signup']">Register?</a>
+        <a *ngIf="!isLoading" [routerLink]="['/pages']">Go to List</a>
         <mat-spinner strokeWidth="3" [diameter]="30" color="accent" *ngIf="isLoading">
         </mat-spinner>
       </div>

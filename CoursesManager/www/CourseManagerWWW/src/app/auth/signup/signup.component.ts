@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +13,7 @@ export class SignupComponent {
 
   isLoading: boolean = false;
 
-  signinForm: FormGroup = new FormGroup({
+  signupForm: FormGroup = new FormGroup({
     'email': new FormControl(null, [
       Validators.required,
       Validators.email
@@ -27,54 +29,59 @@ export class SignupComponent {
     ])
   })
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private authService: AuthService) { }
 
   getEmailErrorMessage() {
-    if (this.signinForm.controls.email.hasError('required')) {
+    if (this.signupForm.controls.email.hasError('required')) {
       return 'Email is required';
     }
 
-    return this.signinForm.controls.email.hasError('email') ? 'Not a valid email' : '';
+    return this.signupForm.controls.email.hasError('email') ? 'Not a valid email' : '';
   }
 
   getPasswordErrorMessage() {
-    if (this.signinForm.controls.password.hasError('required')) {
+    if (this.signupForm.controls.password.hasError('required')) {
       return 'Password is required';
     }
 
-    return this.signinForm.controls.password.hasError('minlength') ? 'Enter at least 6 characters' : '';
+    return this.signupForm.controls.password.hasError('minlength') ? 'Enter at least 6 characters' : '';
   }
 
   getNameErrorMessage() {
-    if (this.signinForm.controls.password.hasError('required')) {
+    if (this.signupForm.controls.password.hasError('required')) {
       return 'Name is required';
     }
 
-    if (this.signinForm.controls.password.hasError('maxlength')) {
+    if (this.signupForm.controls.password.hasError('maxlength')) {
       return 'Max name character 50';
     }
 
-    return this.signinForm.controls.password.hasError('minlength') ? 'Enter at least 6 characters' : '';
+    return this.signupForm.controls.password.hasError('minlength') ? 'Enter at least 6 characters' : '';
   }
 
   onSubmit() {
-    console.log('sign up');
-    console.warn(this.signinForm.controls);
-
-    this.signinForm.controls.name.disable();
-    this.signinForm.controls.password.disable();
-    this.signinForm.controls.email.disable();
+    this.signupForm.controls.name.disable();
+    this.signupForm.controls.password.disable();
+    this.signupForm.controls.email.disable();
 
     this.isLoading = true;
-    // Simulate async call to api
-    setTimeout(() => {
-      //after login navigate to /pages
-      this.router.navigateByUrl('signin');
-      this.signinForm.controls.name.enable();
-      this.signinForm.controls.password.enable();
-      this.signinForm.controls.email.enable();
-      this.isLoading = false
-    }, 4000);
+
+    this.authService.signUp(this.signupForm.value)
+      .subscribe((res: any) => {
+        Swal.fire('Success', 'User created', 'success');
+        this.router.navigateByUrl('signin');
+        this.signupForm.controls.name.enable();
+        this.signupForm.controls.password.enable();
+        this.signupForm.controls.email.enable();
+        this.isLoading = false
+      }, err => {
+        this.isLoading = false;
+        this.signupForm.controls.name.enable();
+        this.signupForm.controls.password.enable();
+        this.signupForm.controls.email.enable();
+        Swal.fire('Error', err.error.message, 'error');
+      });
   }
 
 }

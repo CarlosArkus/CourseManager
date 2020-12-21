@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>Add new course</h1>
+<h1 mat-dialog-title>Update course</h1>
 <div mat-dialog-content>
-  <form [formGroup]="addCourseForm">
+  <form [formGroup]="updateCourseForm">
     <mat-form-field appearance="outline" class="input-width">
       <mat-label>Choose a course</mat-label>
       <mat-select formControlName="courseId">
@@ -25,5 +25,5 @@
 </div>
 <div mat-dialog-actions align="end">
   <button mat-raised-button color="warn" (click)="onNoClick()">Cancel</button>
-  <button [disabled]="!addCourseForm.valid" (click)="onSubmit()" mat-raised-button color="accent">Add</button>
+  <button [disabled]="!updateCourseForm.valid" (click)="onSubmit()" mat-raised-button color="accent">Update</button>
 </div>

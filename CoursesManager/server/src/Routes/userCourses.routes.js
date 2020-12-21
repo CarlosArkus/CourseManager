@@ -20,7 +20,7 @@ router
     ],
     CourseController.addUserCourse)
   .put(
-    '/update/:id',
+    '/update',
     [
       verifyToken,
       check('courseID', 'The Course is required').isMongoId(),

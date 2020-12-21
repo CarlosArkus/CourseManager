@@ -5,28 +5,29 @@
     <mat-card-content class="signin-content">
       <div class="form-container">
         <div class="avatar"></div>
-        <form [formGroup]="signinForm" (ngSubmit)=onSubmit()>
+        <form [formGroup]="signupForm" (ngSubmit)=onSubmit()>
           <mat-form-field class="full-width">
             <mat-label>Name</mat-label>
             <input type="text" matInput formControlName="name">
-            <mat-error *ngIf="signinForm.controls.name.invalid">{{getNameErrorMessage()}}</mat-error>
+            <mat-error *ngIf="signupForm.controls.name.invalid">{{getNameErrorMessage()}}</mat-error>
           </mat-form-field>
           <mat-form-field class="full-width">
             <mat-label>Email</mat-label>
             <input type="email" matInput formControlName="email">
-            <mat-error *ngIf="signinForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
+            <mat-error *ngIf="signupForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
           </mat-form-field>
           <mat-form-field class="full-width">
             <mat-label>Password</mat-label>
             <input type="password" matInput formControlName="password">
-            <mat-error *ngIf="signinForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+            <mat-error *ngIf="signupForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
           </mat-form-field>
           <button *ngIf="!isLoading" type="submit" mat-stroked-button color="accent" class="full-width"
-            [disabled]="!signinForm.valid">
+            [disabled]="!signupForm.valid">
             Sign Up
           </button>
         </form>
         <a *ngIf="!isLoading" [routerLink]="['/signin']">Sign In</a>
+        <a *ngIf="!isLoading" [routerLink]="['/pages']">Go to List</a>
         <mat-spinner strokeWidth="3" [diameter]="30" color="accent" *ngIf="isLoading">
         </mat-spinner>
       </div>

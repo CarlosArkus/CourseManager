@@ -58,7 +58,9 @@ exports.signIn = async (req, res) => {
       .header('auth-token', token)
       .json({
         ok: true,
-        message: 'User loged in'
+        message: 'User loged in',
+        token,
+        userId: user.id
       });
   } catch (error) {
     console.error('Error', error);

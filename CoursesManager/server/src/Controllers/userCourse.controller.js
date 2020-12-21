@@ -5,10 +5,12 @@ const User = require('../Models/User');
 //TODO: pagination
 exports.getUsersCourses = async (req, res) => {
   try {
-    const data = await User.find().populate({
-      path: 'userCourses',
-      select: 'time courseID course'
-    });
+    // const data = await User.find().populate({
+    //   path: 'userCourses',
+    //   select: 'time courseID course'
+    // });
+    const data = await UserCourse.find().populate({ path: 'user', select: 'name' });
+    // const data = await UserCourse.find();
     res.status(200).json({
       ok: true,
       data
@@ -35,18 +37,16 @@ exports.addUserCourse = async (req, res) => {
       })
     }
 
-    const { name, url, description, courseType } = course;
+    const { name: courseName, url: courseURL, description: courseDescription, courseType } = course;
 
     const userCourse = new UserCourse({
       user,
-      time,
+      courseTime: time,
       courseID,
-      course: {
-        name,
-        url,
-        description,
-        courseType
-      }
+      courseName,
+      courseURL,
+      courseDescription,
+      courseType,
     });
 
     const userCourseDB = await userCourse.save(userCourse);
@@ -67,9 +67,8 @@ exports.addUserCourse = async (req, res) => {
 
 exports.updateUserCourse = async (req, res) => {
   try {
-    const userCourseId = req.params.id;
     const user = req.uid;
-    const { time, courseID } = req.body;
+    const { time, courseID, userCourseId } = req.body;
 
     const userCourse = await UserCourse.findById(userCourseId);
 
@@ -91,14 +90,12 @@ exports.updateUserCourse = async (req, res) => {
     const { name, url, description, courseType } = course;
     const userCourseChange = {
       user,
-      time,
+      courseTime: time,
       courseID,
-      course: {
-        name,
-        url,
-        description,
-        courseType
-      }
+      courseName: name,
+      courseURL: url,
+      courseDescription: description,
+      courseType
     }
 
     const updatedUserCourse = await UserCourse.findByIdAndUpdate(userCourseId, userCourseChange, { new: true });
