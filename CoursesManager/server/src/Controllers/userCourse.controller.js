@@ -1,5 +1,6 @@
 const Course = require('../Models/Course');
 const UserCourse = require('../Models/UserCourse');
+const logger = require('../utilities/logger');
 
 //TODO: pagination
 exports.getUsersCourses = async (req, res) => {

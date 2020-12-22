@@ -13,6 +13,8 @@ router
   * @swagger
   * /api/courses/list:
   *    get:
+  *      tags:
+  *       - User Courses
   *      summary: Retrieve a list user courses
   *      description: Get all the user courses
   *      responses:
@@ -24,6 +26,10 @@ router
   * @swagger
   * /api/courses/add:
   *    post:
+  *      security:
+  *        - apiKeyAuth: []
+  *      tags:
+  *       - User Courses
   *      summary: Add course to user
   *      description: Add a course to logged user
   *      requestBody:
@@ -58,6 +64,10 @@ router
   * @swagger
   * /api/courses/update:
   *    put:
+  *      security:
+  *        - apiKeyAuth: []
+  *      tags:
+  *       - User Courses
   *      summary: Update user course
   *      description: Update a user course to a logged in user
   *      requestBody:
@@ -98,6 +108,10 @@ router
   * @swagger
   * /api/courses/delete/:id:
   *    delete:
+  *      security:
+  *        - apiKeyAuth: []
+  *      tags:
+  *       - User Courses
   *      summary: Delete user course
   *      description: Delete a user course passing the id by url parameter
   *      parameters:
