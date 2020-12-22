@@ -1,7 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
 const routes = require('./routes');
 
@@ -9,31 +8,22 @@ const { PORT } = require('./config');
 const app = express();
 
 const swaggerOptions = {
-  swaggerDefinition: {
-    openapi: "3.0.0",
-    info: {
-      version: "1.0.0",
-      title: 'Courses Manager',
-      description: 'Mind teams code challenge',
-      contact: {
-        name: 'Carlos'
+  explorer: true,
+  swaggerOptions: {
+    urls: [
+      {
+        url: 'http://localhost:3000/swagger-v1.json',
+        name: 'Version 1'
       },
-    },
-    components: {
-      securitySchemes: {
-        apiKeyAuth: {
-          type: 'apiKey',
-          in: 'header',
-          name: 'auth-token'
-        }
+      {
+        url: 'http://localhost:3000/swagger-v2.json',
+        name: 'Version 2'
       }
-    },
-    servers: [{ url: 'http://localhost:3000' }],
-  },
-  apis: ["./src/routes/**.js"],
+    ]
+  }
 };
 
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use(express.static('src/public'));
 
 app.set('port', PORT);
 
@@ -43,7 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api', routes);
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(null, swaggerOptions));
 app.use('*', (req, res) => {
   res.status(404).send('Not Found');
 })

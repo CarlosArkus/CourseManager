@@ -1,0 +1,252 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "2.0.0",
+    "title": "Courses Manager",
+    "description": "Mind teams code challenge",
+    "contact": {
+      "name": "Carlos"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "auth-token"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "Sign in and Sign up"
+    },
+    {
+      "name": "User Courses",
+      "description": "Get the user courses list"
+    }
+  ],
+  "paths": {
+    "/api/auth/signup": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Create a new user",
+        "description": "Create a new user in system",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of user",
+                    "example": "Jaun"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email of user",
+                    "example": "test@test.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password of user, at least 6 characters",
+                    "example": "123abc"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "400": {
+            "description": "Email already exists"
+          }
+        }
+      }
+    },
+    "/api/auth/signin": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "User sign in",
+        "description": "User sign in",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Email of user",
+                    "example": "test@test.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password of user, at least 6 characters",
+                    "example": "123abc"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User signed in"
+          },
+          "400": {
+            "description": "bad Email or password"
+          }
+        }
+      }
+    },
+    "/api/courses/list": {
+      "get": {
+        "tags": [
+          "User Courses"
+        ],
+        "summary": "Retrieve a list user courses",
+        "description": "Get all the user courses",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        }
+      }
+    },
+    "/api/courses/add": {
+      "post": {
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "tags": [
+          "User Courses"
+        ],
+        "summary": "Add course to user",
+        "description": "Add a course to logged user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "courseID": {
+                    "type": "string",
+                    "description": "Course Id (UID)",
+                    "example": "5fd016736a4a69d8d34e1d63"
+                  },
+                  "time": {
+                    "type": "number",
+                    "description": "Time in minutes",
+                    "example": 50
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/api/courses/update": {
+      "put": {
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "tags": [
+          "User Courses"
+        ],
+        "summary": "Update user course",
+        "description": "Update a user course to a logged in user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "courseID": {
+                    "type": "string",
+                    "description": "Course Id (UID)",
+                    "example": "5fd016736a4a69d8d34e1d63"
+                  },
+                  "time": {
+                    "type": "number",
+                    "description": "Time in minutes",
+                    "example": 50
+                  },
+                  "userCourseId": {
+                    "type": "string",
+                    "description": "The userCourseId (UID)",
+                    "example": "5fd016736a4a69d8d34e1d63"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "404": {
+            "description": "User Course not found"
+          }
+        }
+      }
+    },
+    "/api/courses/delete/:id": {
+      "delete": {
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "tags": [
+          "User Courses"
+        ],
+        "summary": "Delete user course",
+        "description": "Delete a user course passing the id by url parameter",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "userCourseId to delete (UID)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted"
+          },
+          "404": {
+            "description": "User Course not found"
+          }
+        }
+      }
+    }
+  }
+}
