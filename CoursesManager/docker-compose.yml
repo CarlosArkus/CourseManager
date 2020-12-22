@@ -9,6 +9,15 @@ services:
       - "3000:3000"
     volumes:
       - ./server:/home/node/app
-      - node_modules:/home/node/app/node_modules 
+      - node_modules:/home/node/app/node_modules
+  wwwservice:
+    build: './CourseManagerWWW'
+    image: course-manager-www-image
+    container_name: course-manager-www
+    restart: unless-stopped
+    ports:
+      - "4200:4200"
+    volumes: 
+      - ./CourseManagerWWW:/home/angular/app
 volumes:
   node_modules:
