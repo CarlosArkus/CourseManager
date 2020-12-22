@@ -1,16 +1,14 @@
 version: '3'
 services:
   apiservice:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: './server'
     image: course-manager-api-image
     container_name: course-manager-api
     restart: unless-stopped
     ports:
       - "3000:3000"
     volumes:
-      - .:/home/node/app
+      - ./server:/home/node/app
       - node_modules:/home/node/app/node_modules 
 volumes:
   node_modules:

@@ -14,12 +14,12 @@ export class SigninComponent {
   isLoading: boolean = false;
 
   signinForm: FormGroup = new FormGroup({
-    'email': new FormControl('cdelarosa@arkusnexus.com', [
+    'email': new FormControl(null, [
       Validators.required,
       Validators.email
     ]
     ),
-    'password': new FormControl('123456', [
+    'password': new FormControl(null, [
       Validators.required,
       Validators.minLength(6)
     ],

@@ -50,7 +50,7 @@ export class SignupComponent {
 
   getNameErrorMessage() {
     if (this.signupForm.controls.password.hasError('required')) {
-      return 'Name is required';
+      return 'Name min length 6';
     }
 
     if (this.signupForm.controls.password.hasError('maxlength')) {

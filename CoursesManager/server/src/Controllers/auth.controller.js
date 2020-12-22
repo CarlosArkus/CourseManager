@@ -8,11 +8,10 @@ exports.signUp = async (req, res) => {
   try {
     const emailFound = await User.findOne({ email });
     if (emailFound) {
-      throw new Error('Ups');
-      // return res.status(400).json({
-      //   ok: false,
-      //   message: 'Email already exists'
-      // });
+      return res.status(400).json({
+        ok: false,
+        message: 'Email already exists'
+      });
     }
 
     const user = new User(req.body);
@@ -24,7 +23,7 @@ exports.signUp = async (req, res) => {
       user
     });
   } catch (error) {
-    logger.error(error.message);
+    logger.log('error', error.message);
     res.status(500).json({
       ok: false,
       message: 'Something went wrong'
@@ -39,6 +38,7 @@ exports.signIn = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
+      logger.info('Not user found');
       return res.status(400).json({
         ok: false,
         message: 'Email or password is wrong'
