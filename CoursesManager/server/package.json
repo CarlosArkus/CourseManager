@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "test": "npx jasmine",
+    "test-cover": "istanbul cover spec/specs.js && istanbul check-coverage",
+    "show-coverage": "open coverage/lcov-report/index.html"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +25,14 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "istanbul": "^0.4.5",
+    "jasmine": "^3.6.3",
+    "jasmine-console-reporter": "^3.1.0",
+    "jasmine-node": "^3.0.0",
+    "jasmine-supertest": "^1.0.0",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "request": "^2.88.2",
+    "supertest": "^6.0.1"
   }
 }
