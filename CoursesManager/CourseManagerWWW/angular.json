@@ -129,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "CourseManagerWWW"
+  "defaultProject": "CourseManagerWWW",
+  "cli": {
+    "analytics": false
+  }
 }
